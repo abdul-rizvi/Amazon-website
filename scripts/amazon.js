@@ -1,4 +1,4 @@
-import {cart } from "../data/cart.js"
+import {cart, saveToStorage } from "../data/cart.js"
 import { products } from "../data/products.js"
 
 let productHtml="";
@@ -62,11 +62,13 @@ document.addEventListener("DOMContentLoaded",()=>{
             for(let i=0;i<cart.length;i++){
                 if(cart[i].id===button.dataset.product){
                     cart[i].quantity++;
+                    saveToStorage();
                     document.querySelector(".js-cart-quantity").innerHTML ++;
                     return;
                 }
             }
             cart.push({id:button.dataset.product,quantity:1});
+            saveToStorage();
             document.querySelector(".js-cart-quantity").innerHTML ++;
             
             

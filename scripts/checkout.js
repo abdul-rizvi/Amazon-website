@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js"
+import { cart, saveToStorage } from "../data/cart.js"
 import { products } from "../data/products.js"
 //import { cart_quantity } from "./amazon.js"
 
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     button.addEventListener("click",()=>{
       const productId=button.dataset.id
       document.querySelector(`.js-container-${productId}`).remove()
-      
+      saveToStorage();
     })
   })
 
