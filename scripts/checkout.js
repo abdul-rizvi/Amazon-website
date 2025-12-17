@@ -2,101 +2,110 @@ import { cart } from "../data/cart.js"
 import { products } from "../data/products.js"
 //import { cart_quantity } from "./amazon.js"
 
+function delete_element (index){
+  cart.splice(index,1);
+}
 
 
-let html=""
-
-cart.forEach((cartItem,index)=>{
-    products.forEach((productItem)=>{
-        if(cartItem.id===productItem.id) {
-           
-            html += `<div class="cart-item-container">
-            <div class="delivery-date">
-              Delivery date: Tuesday, June 21
-            </div>
-
-            <div class="cart-item-details-grid">
-              <img class="product-image"
-                src="${productItem.image}">
-
-              <div class="cart-item-details">
-                <div class="product-name">
-                  ${productItem.name}
-                </div>
-                <div class="product-price">
-                  $${(productItem.priceCents/100).toFixed(2)}
-                </div>
-                <div class="product-quantity">
-                  <span>
-                    Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-                  </span>
-                  <span class="update-quantity-link link-primary">
-                    Update
-                  </span>
-                  <span class="delete-quantity-link link-primary">
-                    Delete
-                  </span>
-                </div>
+function display(){
+  let html=""
+  cart.forEach((cartItem,index)=>{
+      products.forEach((productItem)=>{
+          if(cartItem.id===productItem.id) {
+            
+              html += `<div class="cart-item-container">
+              <div class="delivery-date">
+                Delivery date: Tuesday, June 21
               </div>
 
-              <div class="delivery-options">
-                <div class="delivery-options-title">
-                  Choose a delivery option:
-                </div>
-                <div class="delivery-option">
-                  <input type="radio" checked
-                    class="delivery-option-input"
-                    name="delivery-option-${index}">
-                  <div>
-                    <div class="delivery-option-date">
-                      Tuesday, June 21
-                    </div>
-                    <div class="delivery-option-price">
-                      FREE Shipping
-                    </div>
+              <div class="cart-item-details-grid">
+                <img class="product-image"
+                  src="${productItem.image}">
+
+                <div class="cart-item-details">
+                  <div class="product-name">
+                    ${productItem.name}
+                  </div>
+                  <div class="product-price">
+                    $${(productItem.priceCents/100).toFixed(2)}
+                  </div>
+                  <div class="product-quantity">
+                    <span>
+                      Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                    </span>
+                    <span class="update-quantity-link link-primary">
+                      Update
+                    </span>
+                    <span class="delete-quantity-link link-primary js-delete-button" data-index="${index}">
+                      Delete
+                    </span>
                   </div>
                 </div>
-                <div class="delivery-option">
-                  <input type="radio"
-                    class="delivery-option-input"
-                    name="delivery-option-${index}">
-                  <div>
-                    <div class="delivery-option-date">
-                      Wednesday, June 15
-                    </div>
-                    <div class="delivery-option-price">
-                      $4.99 - Shipping
+
+                <div class="delivery-options">
+                  <div class="delivery-options-title">
+                    Choose a delivery option:
+                  </div>
+                  <div class="delivery-option">
+                    <input type="radio" checked
+                      class="delivery-option-input"
+                      name="delivery-option-${index}">
+                    <div>
+                      <div class="delivery-option-date">
+                        Tuesday, June 21
+                      </div>
+                      <div class="delivery-option-price">
+                        FREE Shipping
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="delivery-option">
-                  <input type="radio"
-                    class="delivery-option-input"
-                    name="delivery-option-${index}">
-                  <div>
-                    <div class="delivery-option-date">
-                      Monday, June 13
+                  <div class="delivery-option">
+                    <input type="radio"
+                      class="delivery-option-input"
+                      name="delivery-option-${index}">
+                    <div>
+                      <div class="delivery-option-date">
+                        Wednesday, June 15
+                      </div>
+                      <div class="delivery-option-price">
+                        $4.99 - Shipping
+                      </div>
                     </div>
-                    <div class="delivery-option-price">
-                      $9.99 - Shipping
+                  </div>
+                  <div class="delivery-option">
+                    <input type="radio"
+                      class="delivery-option-input"
+                      name="delivery-option-${index}">
+                    <div>
+                      <div class="delivery-option-date">
+                        Monday, June 13
+                      </div>
+                      <div class="delivery-option-price">
+                        $9.99 - Shipping
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>`
-        }
-        
-    })
-    
-})
+            </div>`
+          }
+          
+      })
+      
+  })
+  document.querySelector(".js-order-summery").innerHTML=html
+}
+
+
 
 document.addEventListener("DOMContentLoaded",()=>{
-    document.querySelector(".js-order-summery").innerHTML=html;
-    /*if(!cart_quantity){
-        document.querySelector(".js-cart-count").innerHTML="0 items"
-    }
-    else {
-        document.querySelector(".js-cart-count").innerHTML=`${cart_quantity} items`
-    }*/
+  display();
+  document.querySelectorAll(".js-delete-button").forEach((button)=>{
+    button.addEventListener("click",()=>{
+      console.log(button.dataset.index)
+      delete_element(button.dataset.index);
+      display();
+    })
+  })
+
 })
