@@ -1,6 +1,6 @@
-import { cart, saveItemsToCart } from "../data/cart.js"
+import { cart, saveItemsToCart, getCartQuantity } from "../data/cart.js"
 import { products } from "../data/products.js"
-//import { cart_quantity } from "./amazon.js"
+
 
 function delete_element (index){
   cart.splice(index,1);
@@ -95,7 +95,7 @@ function display(){
       
   })
   document.querySelector(".js-order-summery").innerHTML=html;
-
+  document.querySelector(".js-cart-count").innerHTML=`${getCartQuantity()} items`
   document.querySelectorAll(".js-delete-button").forEach((button)=>{
     button.addEventListener("click",()=>{
       delete_element(button.dataset.index);
@@ -108,4 +108,5 @@ function display(){
 
 document.addEventListener("DOMContentLoaded",()=>{
   display();
+  
 })

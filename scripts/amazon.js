@@ -70,9 +70,8 @@ document.addEventListener("DOMContentLoaded",()=>{
       saveItemsToCart();
       document.querySelector(".js-cart-quantity").innerHTML ++;
       }
-})
-    
-   
+  })
+  
 })
 //export const cart_quantity=document.querySelector(".js-cart-quantity").innerHTML
 
