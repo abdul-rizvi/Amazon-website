@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 import {cart, saveItemsToCart } from "../data/cart.js"
-=======
-import {cart, saveToStorage } from "../data/cart.js"
->>>>>>> master
 import { products } from "../data/products.js"
 
 let productHtml="";
