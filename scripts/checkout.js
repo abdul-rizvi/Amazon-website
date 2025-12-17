@@ -1,12 +1,12 @@
 import { cart } from "../data/cart.js"
 import { products } from "../data/products.js"
-import { cart_quantity } from "./amazon.js"
+//import { cart_quantity } from "./amazon.js"
 
 
 
 let html=""
-cart.forEach((cartItem)=>{
-    console.log(cartItem.id);
+
+cart.forEach((cartItem,index)=>{
     products.forEach((productItem)=>{
         if(cartItem.id===productItem.id) {
            
@@ -46,7 +46,7 @@ cart.forEach((cartItem)=>{
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${index}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -59,7 +59,7 @@ cart.forEach((cartItem)=>{
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${index}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -72,7 +72,7 @@ cart.forEach((cartItem)=>{
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${index}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
@@ -86,17 +86,17 @@ cart.forEach((cartItem)=>{
             </div>
           </div>`
         }
-        else{console.log("nothing")};
+        
     })
     
 })
 
 document.addEventListener("DOMContentLoaded",()=>{
     document.querySelector(".js-order-summery").innerHTML=html;
-    if(!cart_quantity){
+    /*if(!cart_quantity){
         document.querySelector(".js-cart-count").innerHTML="0 items"
     }
     else {
         document.querySelector(".js-cart-count").innerHTML=`${cart_quantity} items`
-    }
+    }*/
 })
