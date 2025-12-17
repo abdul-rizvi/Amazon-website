@@ -1,9 +1,10 @@
-import { cart } from "../data/cart.js"
+import { cart, saveItemsToCart } from "../data/cart.js"
 import { products } from "../data/products.js"
 //import { cart_quantity } from "./amazon.js"
 
 function delete_element (index){
   cart.splice(index,1);
+  saveItemsToCart();
 }
 
 
@@ -36,7 +37,7 @@ function display(){
                     <span class="update-quantity-link link-primary">
                       Update
                     </span>
-                    <span class="delete-quantity-link link-primary js-delete-button" data-index="${index}">
+                    <span class="delete-quantity-link link-primary js-delete-button js-${index}" data-index="${index}">
                       Delete
                     </span>
                   </div>
@@ -93,19 +94,18 @@ function display(){
       })
       
   })
-  document.querySelector(".js-order-summery").innerHTML=html
+  document.querySelector(".js-order-summery").innerHTML=html;
+
+  document.querySelectorAll(".js-delete-button").forEach((button)=>{
+    button.addEventListener("click",()=>{
+      delete_element(button.dataset.index);
+      display();
+    })
+  })
 }
 
 
 
 document.addEventListener("DOMContentLoaded",()=>{
   display();
-  document.querySelectorAll(".js-delete-button").forEach((button)=>{
-    button.addEventListener("click",()=>{
-      console.log(button.dataset.index)
-      delete_element(button.dataset.index);
-      display();
-    })
-  })
-
 })
