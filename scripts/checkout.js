@@ -1,6 +1,6 @@
 import { cart, saveToStorage } from "../data/cart.js"
 import { products } from "../data/products.js"
-//import { cart_quantity } from "./amazon.js"
+import { quantity_in_cart } from "./amazon.js"
 
 function delete_element (index){
   cart.splice(index,1);
@@ -99,6 +99,8 @@ function display(){
 
 
 document.addEventListener("DOMContentLoaded",()=>{
+  //let n=quantity_in_cart();
+  //document.querySelector(".js-cart-count").innerHTML=`${n}items`;
   display();
   document.querySelectorAll(".js-delete-button").forEach((button)=>{
     button.addEventListener("click",()=>{
@@ -107,5 +109,6 @@ document.addEventListener("DOMContentLoaded",()=>{
       saveToStorage();
     })
   })
+
 
 })
