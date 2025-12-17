@@ -1,9 +1,10 @@
-import { cart, saveToStorage } from "../data/cart.js"
+import { cart, saveItemsToCart, getCartQuantity } from "../data/cart.js"
 import { products } from "../data/products.js"
-import { quantity_in_cart } from "./amazon.js"
+
 
 function delete_element (index){
   cart.splice(index,1);
+  saveItemsToCart();
 }
 
 
@@ -13,7 +14,7 @@ function display(){
       products.forEach((productItem)=>{
           if(cartItem.id===productItem.id) {
             
-              html += `<div class="cart-item-container  js-container-${productItem.id}">
+              html += `<div class="cart-item-container">
               <div class="delivery-date">
                 Delivery date: Tuesday, June 21
               </div>
@@ -36,7 +37,7 @@ function display(){
                     <span class="update-quantity-link link-primary">
                       Update
                     </span>
-                    <span class="delete-quantity-link link-primary js-delete-button" data-id="${productItem.id}">
+                    <span class="delete-quantity-link link-primary js-delete-button js-${index}" data-index="${index}">
                       Delete
                     </span>
                   </div>
@@ -93,22 +94,19 @@ function display(){
       })
       
   })
-  document.querySelector(".js-order-summery").innerHTML=html
+  document.querySelector(".js-order-summery").innerHTML=html;
+  document.querySelector(".js-cart-count").innerHTML=`${getCartQuantity()} items`
+  document.querySelectorAll(".js-delete-button").forEach((button)=>{
+    button.addEventListener("click",()=>{
+      delete_element(button.dataset.index);
+      display();
+    })
+  })
 }
 
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-  //let n=quantity_in_cart();
-  //document.querySelector(".js-cart-count").innerHTML=`${n}items`;
   display();
-  document.querySelectorAll(".js-delete-button").forEach((button)=>{
-    button.addEventListener("click",()=>{
-      const productId=button.dataset.id
-      document.querySelector(`.js-container-${productId}`).remove()
-      saveToStorage();
-    })
-  })
-
-
+  
 })
