@@ -13,7 +13,7 @@ function display(){
       products.forEach((productItem)=>{
           if(cartItem.id===productItem.id) {
             
-              html += `<div class="cart-item-container">
+              html += `<div class="cart-item-container  js-container-${productItem.id}">
               <div class="delivery-date">
                 Delivery date: Tuesday, June 21
               </div>
@@ -36,7 +36,7 @@ function display(){
                     <span class="update-quantity-link link-primary">
                       Update
                     </span>
-                    <span class="delete-quantity-link link-primary js-delete-button" data-index="${index}">
+                    <span class="delete-quantity-link link-primary js-delete-button" data-id="${productItem.id}">
                       Delete
                     </span>
                   </div>
@@ -102,9 +102,9 @@ document.addEventListener("DOMContentLoaded",()=>{
   display();
   document.querySelectorAll(".js-delete-button").forEach((button)=>{
     button.addEventListener("click",()=>{
-      console.log(button.dataset.index)
-      delete_element(button.dataset.index);
-      display();
+      const productId=button.dataset.id
+      document.querySelector(`.js-container-${productId}`).remove()
+      
     })
   })
 
