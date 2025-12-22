@@ -27,8 +27,8 @@ products.forEach((product)=>{
         $${(product.priceCents/100).toFixed(2)}
       </div>
 
-      <div class="product-quantity-container">
-        <select>
+      <div class="product-quantity-container ">
+        <select class="js-cart-count">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -59,12 +59,13 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.querySelector(".js-products-grid").innerHTML=productHtml;
   document.querySelectorAll(".js-add-to-cart").forEach((button)=>{
     button.onclick=()=>{
+      cart_count();
       for(let i=0;i<cart.length;i++){
         if(cart[i].id===button.dataset.product){
-        cart[i].quantity++;
-        document.querySelector(".js-cart-quantity").innerHTML ++;
-        saveItemsToCart();
-        return;
+          cart[i].quantity++;
+          document.querySelector(".js-cart-quantity").innerHTML ++;
+          saveItemsToCart();
+          return;
         }
       }
       cart.push({id:button.dataset.product,quantity:1});
@@ -81,4 +82,10 @@ document.addEventListener("DOMContentLoaded",()=>{
 }
  
 
-
+function cart_count(){
+  const cd=document.querySelector(".js-cart-count");
+  cd.addEventListener('change', () => {
+    const newValue = quantitySelect.value;
+    console.log(`The user changed the quantity to: ${newValue}`);
+});
+}
